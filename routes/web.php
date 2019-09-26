@@ -53,9 +53,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::get('permiso-rol', 'PermisoRolController@index')->name('permiso_rol');
     Route::post('permiso-rol', 'PermisoRolController@guardar')->name('guardar_permiso_rol');
 });
+/*RUTAS BODEGA*/
 Route::get('bodega', 'BodegaController@index')->name('bodega');
 Route::get('bodega/crear', 'BodegaController@crear')->name('crear_bodega');
 Route::post('bodega', 'BodegaController@guardar')->name('guardar_bodega');
 Route::get('bodega/{id}/editar', 'BodegaController@editar')->name('editar_bodega');
 Route::put('bodega/{id}', 'BodegaController@actualizar')->name('actualizar_bodega');
 Route::delete('bodega/{id}', 'BodegaController@eliminar')->name('eliminar_bodega');
+/*RUTAS CATEGORIA*/
+Route::get('categoria', 'CategoriaController@index')->name('categoria');
+Route::get('categoria/crear', 'CategoriaController@crear')->name('crear_categoria');
+Route::post('categoria', 'CategoriaController@guardar')->name('guardar_categoria');
+Route::get('categoria/{id}/editar', 'CategoriaController@editar')->name('editar_categoria');
+Route::put('categoria/{id}', 'CategoriaController@actualizar')->name('actualizar_categoria');
+Route::delete('categoria/{id}', 'CategoriaController@eliminar')->name('eliminar_categoria');

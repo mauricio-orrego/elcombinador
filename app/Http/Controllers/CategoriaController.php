@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidacionCategoria;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ValidacionBodega;
-use App\Models\Bodega;
 
-class BodegaController extends Controller
+class CategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,9 @@ class BodegaController extends Controller
      */
     public function index()
     {
-        can('listar-bodegas');
-        $datas = Bodega::orderBy('id')->get();
-        return view('bodega.index', compact('datas'));
+        can('listar-categorias');
+        $datas = Categoria::orderBy('id')->get();
+        return view('categoria.index', compact('datas'));
     }
 
     /**
@@ -28,7 +27,7 @@ class BodegaController extends Controller
      */
     public function crear()
     {
-        return view('bodega.crear');
+        return view('categoria.crear');
     }
 
     /**
@@ -37,10 +36,10 @@ class BodegaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function guardar(ValidacionBodega $request)
+    public function guardar(Request $request)
     {
-        Bodega::create($request->all());
-        return redirect('bodega')->with('mensaje', 'Bodega creada con exito');
+        Categoria::create($request->all());
+        return redirect('categoria')->with('mensaje', 'Categoria creada con exito');
     }
 
     /**
@@ -62,9 +61,8 @@ class BodegaController extends Controller
      */
     public function editar($id)
     {
-        $data = Bodega::findOrFail($id);
-        return view('bodega.editar', compact('data'));
- 
+        $data = Categoria::findOrFail($id);
+        return view('categoria.editar', compact('data'));
     }
 
     /**
@@ -74,11 +72,11 @@ class BodegaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function actualizar(ValidacionBodega $request, $id)
+    public function actualizar(ValidacionCategoria $request, $id)
     {
-        Bodega::findOrFail($id)->update($request->all());
-        return redirect('bodega')->with('mensaje', 'Bodega actualizado con exito');
-     }
+        Categoria::findOrFail($id)->update($request->all());
+        return redirect('categoria')->with('mensaje', 'Categoria actualizado con exito');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -88,8 +86,8 @@ class BodegaController extends Controller
      */
     public function eliminar($id)
     {
-        if($request->ajax()) {
-            if (Bodega::destroy($id)) {
+        if ($request->ajax()) {
+            if (Categoria::destroy($id)) {
                 return response()->json(['mensaje' => 'ok']);
             } else {
                 return response()->json(['mensaje' => 'ng']);
@@ -99,3 +97,4 @@ class BodegaController extends Controller
         }
     }
 }
+
