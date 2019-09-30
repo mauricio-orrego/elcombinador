@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ValidacionCategoria;
+use App\Http\Requests\ValidacionProducto;
+use App\Models\Bodega;
 use App\Models\Categoria;
+use App\Models\Producto;
+use Illuminate\Http\Request;
 
-
-class CategoriaController extends Controller
+class ProductoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,12 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        can('listar-categorias');
-        $datas = Categoria::orderBy('id')->get();
-        return view('categoria.index', compact('datas'));
+        can('crear-producto');
+        
+        $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $datas = Producto::orderBy('id')->get();
+        return view('producto.index', compact('datas','bodegas'));
+   
     }
 
     /**
@@ -29,7 +32,9 @@ class CategoriaController extends Controller
      */
     public function crear()
     {
-        return view('categoria.crear');
+        $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();
+        return view('producto.crear', compact('bodegas','categorias'));
     }
 
     /**
@@ -38,10 +43,10 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function guardar(Request $request)
+    public function guardar(ValidacionProducto $request)
     {
-        Categoria::create($request->all());
-        return redirect('categoria')->with('mensaje', 'Categoria creada con exito');
+        Producto::create($request->all());
+        return redirect('producto')->with('mensaje', 'Producto creada con exito');
     }
 
     /**
@@ -50,7 +55,7 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function ver($id)
+    public function show($id)
     {
         //
     }
@@ -63,8 +68,9 @@ class CategoriaController extends Controller
      */
     public function editar($id)
     {
-        $data = Categoria::findOrFail($id);
-        return view('categoria.editar', compact('data'));
+        $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $data = Producto::with('bodegas')->findOrFail($id);
+        return view('producto.editar', compact('data'));
     }
 
     /**
@@ -74,10 +80,10 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function actualizar(ValidacionCategoria $request, $id)
+    public function actualizar(ValidacionProducto $request, $id)
     {
-        Categoria::findOrFail($id)->update($request->all());
-        return redirect('categoria')->with('mensaje', 'Categoria actualizado con exito');
+        Producto::findOrFail($id)->update($request->all());
+        return redirect('producto')->with('mensaje', 'Producto actualizado con exito');
     }
 
     /**
@@ -89,7 +95,7 @@ class CategoriaController extends Controller
     public function eliminar($id)
     {
         if ($request->ajax()) {
-            if (Categoria::destroy($id)) {
+            if (Producto::destroy($id)) {
                 return response()->json(['mensaje' => 'ok']);
             } else {
                 return response()->json(['mensaje' => 'ng']);
@@ -99,4 +105,3 @@ class CategoriaController extends Controller
         }
     }
 }
-

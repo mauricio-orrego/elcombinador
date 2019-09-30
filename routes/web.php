@@ -67,3 +67,10 @@ Route::post('categoria', 'CategoriaController@guardar')->name('guardar_categoria
 Route::get('categoria/{id}/editar', 'CategoriaController@editar')->name('editar_categoria');
 Route::put('categoria/{id}', 'CategoriaController@actualizar')->name('actualizar_categoria');
 Route::delete('categoria/{id}', 'CategoriaController@eliminar')->name('eliminar_categoria');
+/*RUTAS PRODUCTO*/
+Route::get('producto', 'ProductoController@index')->name('producto');
+Route::get('producto/crear', 'ProductoController@crear')->name('crear_producto');
+Route::post('producto', 'ProductoController@guardar')->name('guardar_producto');
+Route::get('producto/{id}/editar', 'ProductoController@editar')->name('editar_producto');
+Route::put('producto/{id}', 'ProductoController@actualizar')->name('actualizar_producto');
+Route::delete('producto/{id}', 'ProductoController@eliminar')->name('eliminar_producto');
