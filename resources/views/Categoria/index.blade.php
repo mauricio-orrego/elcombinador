@@ -4,7 +4,7 @@ Categorias
 @endsection
 
 @section("scripts")
-<script src="{{asset("assets/pages/scripts/categoria/index.js")}}" type="text/javascript"></script>
+<script src="{{asset("assets/pages/scripts/index.js")}}" type="text/javascript"></script>
 @endsection
 
 @section('contenido')

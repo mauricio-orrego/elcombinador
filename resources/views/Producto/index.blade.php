@@ -38,11 +38,9 @@ Productos
                             <td>{{$data->nombre}}</td>
                             <td>{{$data->costo}}</td>
                             <td>{{$data->valorventa}}</td>
-                            <td>@foreach($bodegas as $bodega => $nombre)
-                                    {{$nombre}}
-                                @endforeach
-                            </select></td>
-                            
+                            <td>{{$bodegas[$data->bodega_id]}}</td>
+                            <td>{{$categorias[$data->categoria_id]}}</td>
+                            <td>
                                 <a href="{{route('editar_producto', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>

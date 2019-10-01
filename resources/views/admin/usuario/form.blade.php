@@ -34,10 +34,7 @@
         <select name="rol_id[]" id="rol_id" class="form-control" multiple required>
             <option value="">Seleccione el rol</option>
             @foreach($rols as $id => $nombre)
-                <option
-                value="{{$id}}"
-                {{is_array(old('rol_id')) ? (in_array($id, old('rol_id')) ? 'selected' : '')  : (isset($data) ? ($data->roles->firstWhere('id', $id) ? 'selected' : '') : '')}}
-                >
+                <option value="{{$id}}" {{is_array(old('rol_id')) ? (in_array($id, old('rol_id')) ? 'selected' : '')  : (isset($data) ? ($data->roles->firstWhere('id', $id) ? 'selected' : '') : '')}}>
                 {{$nombre}}
                 </option>
             @endforeach

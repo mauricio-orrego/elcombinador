@@ -86,7 +86,7 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function eliminar($id)
+    public function eliminar(Request $request, $id)
     {
         if ($request->ajax()) {
             if (Categoria::destroy($id)) {

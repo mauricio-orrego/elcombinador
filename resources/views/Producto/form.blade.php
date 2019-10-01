@@ -23,7 +23,7 @@
             <option value="">Seleccione bodega</option>
             @foreach($bodegas as $id => $nombre)
                 <option value="{{$id}}" {{old("bodega_id", $data->$id ?? "") == $id ? "selected" : ""}}>{{$nombre}}</option>
-            @endforeach
+                @endforeach
         </select>
     </div>
 </div>

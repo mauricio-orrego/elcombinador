@@ -6,7 +6,7 @@ use App\Http\Requests\ValidacionProducto;
 use App\Models\Bodega;
 use App\Models\Categoria;
 use App\Models\Producto;
-use Illuminate\Http\Request;
+use Illuminate\Http\admin\Request;
 
 class ProductoController extends Controller
 {
@@ -18,11 +18,10 @@ class ProductoController extends Controller
     public function index()
     {
         can('crear-producto');
-        
+        $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();
         $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
         $datas = Producto::orderBy('id')->get();
-        return view('producto.index', compact('datas','bodegas'));
-   
+        return view('producto.index', compact('datas','bodegas','categorias'));
     }
 
     /**
@@ -68,9 +67,11 @@ class ProductoController extends Controller
      */
     public function editar($id)
     {
+        
         $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $data = Producto::with('bodegas')->findOrFail($id);
-        return view('producto.editar', compact('data'));
+        $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $data = Producto::findOrFail($id);
+        return view('producto.editar', compact('data','bodegas','categorias'));
     }
 
     /**
@@ -92,9 +93,9 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function eliminar($id)
+    public function eliminar(Request $request, $id)
     {
-        if ($request->ajax()) {
+        if ($request->ajax()){
             if (Producto::destroy($id)) {
                 return response()->json(['mensaje' => 'ok']);
             } else {
