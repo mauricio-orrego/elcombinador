@@ -1,6 +1,6 @@
 @extends("theme.$theme.layout")
 @section('titulo')
-Bodegas
+Tipo Documento
 @endsection
 
 @section("scripts")
@@ -13,9 +13,9 @@ Bodegas
         @include('includes.mensaje')
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Bodegas</h3>
+                <h3 class="box-title">Tipo Documento</h3>
                 <div class="box-tools pull-right">
-                    <a href="{{route('crear_bodega')}}" class="btn btn-block btn-success btn-sm">
+                    <a href="{{route('crear_tipo_doc')}}" class="btn btn-block btn-success btn-sm">
                         <i class="fa fa-fw fa-plus-circle"></i> Nuevo registro
                     </a>
                 </div>
@@ -33,10 +33,10 @@ Bodegas
                         <tr>
                             <td>{{$data->nombre}}</td>
                             <td>
-                                <a href="{{route('editar_bodega', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
+                                <a href="{{route('editar_tipo_doc', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
-                                <form action="{{route('eliminar_bodega', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
+                                <form action="{{route('eliminar_tipo_doc', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
                                     @csrf @method("delete")
                                     <button type="submit" class="btn-accion-tabla eliminar tooltipsC" title="Eliminar este registro">
                                         <i class="fa fa-fw fa-trash text-danger"></i>
@@ -45,7 +45,6 @@ Bodegas
                             </td>
                         </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>

@@ -88,3 +88,17 @@ Route::post('depto', 'DeptoController@guardar')->name('guardar_depto');
 Route::get('depto/{id}/editar', 'DeptoController@editar')->name('editar_depto');
 Route::put('depto/{id}', 'DeptoController@actualizar')->name('actualizar_depto');
 Route::delete('depto/{id}', 'DeptoController@eliminar')->name('eliminar_depto');
+/*RUTAS TIPO_DOC*/
+Route::get('tipo_doc', 'Tipo_docController@index')->name('tipo_doc');
+Route::get('tipo_doc/crear', 'Tipo_docController@crear')->name('crear_tipo_doc');
+Route::post('tipo_doc', 'Tipo_docController@guardar')->name('guardar_tipo_doc');
+Route::get('tipo_doc/{id}/editar', 'Tipo_docController@editar')->name('editar_tipo_doc');
+Route::put('tipo_doc/{id}', 'Tipo_docController@actualizar')->name('actualizar_tipo_doc');
+Route::delete('tipo_doc/{id}', 'Tipo_docController@eliminar')->name('eliminar_tipo_doc');
+/*RUTAS TIPO_PERSONA*/
+Route::get('tipo_per', 'Tipo_perController@index')->name('tipo_per');
+Route::get('tipo_per/crear', 'Tipo_perController@crear')->name('crear_tipo_per');
+Route::post('tipo_per', 'Tipo_perController@guardar')->name('guardar_tipo_per');
+Route::get('tipo_per/{id}/editar', 'Tipo_perController@editar')->name('editar_tipo_per');
+Route::put('tipo_per/{id}', 'Tipo_perController@actualizar')->name('actualizar_tipo_per');
+Route::delete('tipo_per/{id}', 'Tipo_perController@eliminar')->name('eliminar_tipo_per');
