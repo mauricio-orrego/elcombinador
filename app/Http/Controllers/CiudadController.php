@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidacionCiudad;
+use App\Models\Ciudad;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ValidacionBodega;
-use App\Models\Bodega;
 
-class BodegaController extends Controller
+class CiudadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,9 @@ class BodegaController extends Controller
      */
     public function index()
     {
-        can('listar-bodegas');
-        $datas = Bodega::orderBy('id')->get();
-        return view('bodega.index', compact('datas'));
+        can('listar-ciudad');
+        $datas = Ciudad::orderBy('id')->get();
+        return view('ciudad.index', compact('datas'));
     }
 
     /**
@@ -28,7 +27,7 @@ class BodegaController extends Controller
      */
     public function crear()
     {
-        return view('bodega.crear');
+        return view('ciudad.crear');
     }
 
     /**
@@ -37,10 +36,10 @@ class BodegaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function guardar(ValidacionBodega $request)
+    public function guardar(ValidacionCiudad $request)
     {
-        Bodega::create($request->all());
-        return redirect('bodega')->with('mensaje', 'Bodega creada con exito');
+        Ciudad::create($request->all());
+        return redirect('ciudad')->with('mensaje', 'Ciudad creada con exito');
     }
 
     /**
@@ -49,7 +48,7 @@ class BodegaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function ver($id)
+    public function show($id)
     {
         //
     }
@@ -62,8 +61,8 @@ class BodegaController extends Controller
      */
     public function editar($id)
     {
-        $data = Bodega::findOrFail($id);
-        return view('bodega.editar', compact('data'));
+        $data = Ciudad::findOrFail($id);
+        return view('ciudad.editar', compact('data'));
     }
 
     /**
@@ -73,11 +72,12 @@ class BodegaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function actualizar(ValidacionBodega $request, $id)
+    public function actualizar(ValidacionCiudad $request, $id)
     {
-        Bodega::findOrFail($id)->update($request->all());
-        return redirect('bodega')->with('mensaje', 'Bodega actualizado con exito');
-     }
+        Ciudad::findOrFail($id)->update($request->all());
+        return redirect('bodega')->with('mensaje', 'Ciudad actualizado con exito');
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -88,7 +88,7 @@ class BodegaController extends Controller
     public function eliminar(Request $request, $id)
     {
         if($request->ajax()) {
-            if (Bodega::destroy($id)) {
+            if (Ciudad::destroy($id)) {
                 return response()->json(['mensaje' => 'ok']);
             } else {
                 return response()->json(['mensaje' => 'ng']);
@@ -97,4 +97,5 @@ class BodegaController extends Controller
             abort(404);
         }
     }
+
 }

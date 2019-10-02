@@ -74,3 +74,17 @@ Route::post('producto', 'ProductoController@guardar')->name('guardar_producto');
 Route::get('producto/{id}/editar', 'ProductoController@editar')->name('editar_producto');
 Route::put('producto/{id}', 'ProductoController@actualizar')->name('actualizar_producto');
 Route::delete('producto/{id}', 'ProductoController@eliminar')->name('eliminar_producto');
+/*RUTAS CIUDAD*/
+Route::get('ciudad', 'CiudadController@index')->name('ciudad');
+Route::get('ciudad/crear', 'CiudadController@crear')->name('crear_ciudad');
+Route::post('ciudad', 'CiudadController@guardar')->name('guardar_ciudad');
+Route::get('ciudad/{id}/editar', 'CiudadController@editar')->name('editar_ciudad');
+Route::put('ciudad/{id}', 'CiudadController@actualizar')->name('actualizar_ciudad');
+Route::delete('ciudad/{id}', 'CiudadController@eliminar')->name('eliminar_ciudad');
+/*RUTAS DEPARTAMENTOS*/
+Route::get('depto', 'DeptoController@index')->name('depto');
+Route::get('depto/crear', 'DeptoController@crear')->name('crear_depto');
+Route::post('depto', 'DeptoController@guardar')->name('guardar_depto');
+Route::get('depto/{id}/editar', 'DeptoController@editar')->name('editar_depto');
+Route::put('depto/{id}', 'DeptoController@actualizar')->name('actualizar_depto');
+Route::delete('depto/{id}', 'DeptoController@eliminar')->name('eliminar_depto');
