@@ -102,3 +102,10 @@ Route::post('tipo_per', 'Tipo_perController@guardar')->name('guardar_tipo_per');
 Route::get('tipo_per/{id}/editar', 'Tipo_perController@editar')->name('editar_tipo_per');
 Route::put('tipo_per/{id}', 'Tipo_perController@actualizar')->name('actualizar_tipo_per');
 Route::delete('tipo_per/{id}', 'Tipo_perController@eliminar')->name('eliminar_tipo_per');
+/*RUTAS PERSONA*/
+Route::get('persona', 'PersonaController@index')->name('persona');
+Route::get('persona/crear', 'PersonaController@crear')->name('crear_persona');
+Route::post('persona', 'PersonaController@guardar')->name('guardar_persona');
+Route::get('persona/{id}/editar', 'PersonaController@editar')->name('editar_persona');
+Route::put('persona/{id}', 'PersonaController@actualizar')->name('actualizar_persona');
+Route::delete('persona/{id}', 'PersonaController@eliminar')->name('eliminar_persona');

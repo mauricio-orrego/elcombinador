@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ValidaPersona;
+use App\Model\Persona;
+use App\Models\Ciudad;
+use App\Models\Tipo_doc;
+use App\Models\Tipo_per;
 use Illuminate\Http\Request;
 
 class PersonaController extends Controller
@@ -13,7 +18,12 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        //
+        can('crear-persona');
+        $tipo_pers = Tipo_per::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $datas = Persona::orderBy('id')->get();
+        return view('persona.index', compact('datas','tipo_docs','ciudades','tipo_pers'));
     }
 
     /**
@@ -21,9 +31,12 @@ class PersonaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function crear()
     {
-        //
+        $tipo_pers = Tipo_per::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
+        return view('persona.crear', compact('tipo_pers','tipo_docs','ciudades'));
     }
 
     /**
@@ -32,9 +45,10 @@ class PersonaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function guardar(ValidaPersona $request)
     {
-        //
+        Persona::create($request->all());
+        return redirect('persona')->with('mensaje', 'persona creada con exito');
     }
 
     /**
@@ -54,9 +68,13 @@ class PersonaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editar($id)
     {
-        //
+        $tipo_pers = Tipo_per::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $data = Persona::findOrFail($id);
+        return view('persona.editar', compact('data','tipo_pers','tipo_docs','ciudades'));
     }
 
     /**
@@ -66,9 +84,10 @@ class PersonaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function actualizar(ValidaPersona $request, $id)
     {
-        //
+        Persona::findOrFail($id)->update($request->all());
+        return redirect('persona')->with('mensaje', 'persona actualizado con exito');
     }
 
     /**
@@ -77,8 +96,16 @@ class PersonaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function eliminar(Request $request, $id)
     {
-        //
+        if ($request->ajax()){
+            if (Persona::destroy($id)) {
+                return response()->json(['mensaje' => 'ok']);
+            } else {
+                return response()->json(['mensaje' => 'ng']);
+            }
+        } else {
+            abort(404);
+        }
     }
 }

@@ -25,6 +25,7 @@ Ciudad
                     <thead>
                         <tr>
                             <th>Nombre</th>
+                            <th>Departamento</th>
                             <th class="width70"></th>
                         </tr>
                     </thead>
@@ -32,6 +33,7 @@ Ciudad
                         @foreach ($datas as $data)
                         <tr>
                             <td>{{$data->nombre}}</td>
+                            <td>{{$deptos[$data->depto_id]}}</td>
                             <td>
                                 <a href="{{route('editar_ciudad', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
                                     <i class="fa fa-fw fa-pencil"></i>

@@ -17,9 +17,9 @@ class CrearTablaPersona extends Migration
         Schema::create('persona', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombres', 100);
-            $table->string('apellidos', 100);
+            $table->string('apellidos', 100)->nullable();
             $table->string('documento', 20);
-            $table->string('dv', 1);
+            $table->string('dv', 1)->nullable();
             $table->unsignedInteger('tipo_doc_id');
             $table->foreign('tipo_doc_id','fr_tipo_doc_id')->references('id')->on('tipo_doc')->onDelete('restrict')->onUpdate('cascade');
             $table->string('direccion', 100);

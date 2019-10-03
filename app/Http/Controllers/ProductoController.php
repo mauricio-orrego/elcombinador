@@ -67,7 +67,6 @@ class ProductoController extends Controller
      */
     public function editar($id)
     {
-        
         $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
         $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();
         $data = Producto::findOrFail($id);

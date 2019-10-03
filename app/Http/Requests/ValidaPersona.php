@@ -13,7 +13,7 @@ class ValidaPersona extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,9 +22,18 @@ class ValidaPersona extends FormRequest
      * @return array
      */
     public function rules()
-    {
-        return [
-            //
-        ];
+         {//direccion	ciudad_id	telefono	celular	tipo_per_id
+            return [
+                'nombre' => 'required|max:100' . $this->route('id'),
+                'apellido' => 'max:100',
+                'documento' => 'numeric|max:50',
+                'dv' => 'numeric|max:1',
+                'tipo_doc_id' => 'required',
+                'direccion' => 'required|max:100',
+                'ciudad_id' => 'required',
+                'telefono' => 'required|max:50',
+                'celular' => 'required|max:50',
+                'tipo_per_id' => 'required'
+            ];
+        }
     }
-}

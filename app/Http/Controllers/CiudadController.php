@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidacionCiudad;
 use App\Models\Ciudad;
+use App\Models\Depto;
 use Illuminate\Http\Request;
 
 class CiudadController extends Controller
@@ -16,8 +17,9 @@ class CiudadController extends Controller
     public function index()
     {
         can('listar-ciudad');
+        $deptos = Depto::orderBy('id')->pluck('nombre', 'id')->toArray();
         $datas = Ciudad::orderBy('id')->get();
-        return view('ciudad.index', compact('datas'));
+        return view('ciudad.index', compact('datas','deptos'));
     }
 
     /**
@@ -27,7 +29,8 @@ class CiudadController extends Controller
      */
     public function crear()
     {
-        return view('ciudad.crear');
+        $deptos = Depto::orderBy('id')->pluck('nombre', 'id')->toArray();
+        return view('ciudad.crear', compact('deptos'));
     }
 
     /**
@@ -61,8 +64,9 @@ class CiudadController extends Controller
      */
     public function editar($id)
     {
+        $deptos = Depto::orderBy('id')->pluck('nombre', 'id')->toArray();
         $data = Ciudad::findOrFail($id);
-        return view('ciudad.editar', compact('data'));
+        return view('ciudad.editar', compact('data','deptos'));
     }
 
     /**
@@ -75,7 +79,7 @@ class CiudadController extends Controller
     public function actualizar(ValidacionCiudad $request, $id)
     {
         Ciudad::findOrFail($id)->update($request->all());
-        return redirect('bodega')->with('mensaje', 'Ciudad actualizado con exito');
+        return redirect('ciudad')->with('mensaje', 'Ciudad actualizada con exito');
     }
 
 

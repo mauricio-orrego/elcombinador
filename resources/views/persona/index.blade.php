@@ -1,10 +1,10 @@
 @extends("theme.$theme.layout")
 @section('titulo')
-Libros
+Personas
 @endsection
 
 @section("scripts")
-<script src="{{asset("assets/pages/scripts/libro/index.js")}}" type="text/javascript"></script>
+<script src="{{asset("assets/pages/scripts/index.js")}}" type="text/javascript"></script>
 @endsection
 
 @section('contenido')
@@ -13,9 +13,9 @@ Libros
         @include('includes.mensaje')
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Libros</h3>
+                <h3 class="box-title">Personas</h3>
                 <div class="box-tools pull-right">
-                    <a href="{{route('crear_libro')}}" class="btn btn-block btn-success btn-sm">
+                    <a href="{{route('crear_persona')}}" class="btn btn-block btn-success btn-sm">
                         <i class="fa fa-fw fa-plus-circle"></i> Nuevo registro
                     </a>
                 </div>
@@ -24,19 +24,27 @@ Libros
                 <table class="table table-striped table-bordered table-hover" id="tabla-data">
                     <thead>
                         <tr>
-                            <th>Título</th>
+                            <th>Nombre</th>
+                            <th>Costo</th>
+                            <th>Valor venta</th>
+                            <th>Bodega</th>
+                            <th>Categoria</th>
                             <th class="width70"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($datas as $data)
                         <tr>
-                            <td>{{$data->titulo}}</td>
+                            <td>{{$data->nombre}}</td>
+                            <td>{{$data->costo}}</td>
+                            <td>{{$data->valorventa}}</td>
+                            <td>{{$bodegas[$data->bodega_id]}}</td>
+                            <td>{{$categorias[$data->categoria_id]}}</td>
                             <td>
-                                <a href="{{route('editar_libro', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
+                                <a href="{{route('editar_persona', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
-                                <form action="{{route('eliminar_libro', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
+                                <form action="{{route('eliminar_persona', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
                                     @csrf @method("delete")
                                     <button type="submit" class="btn-accion-tabla eliminar tooltipsC" title="Eliminar este registro">
                                         <i class="fa fa-fw fa-trash text-danger"></i>
