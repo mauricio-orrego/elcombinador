@@ -16,13 +16,14 @@ class PersonaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request )
     {
+        //dd("hola" . $request->get('q'));
         can('crear-persona');
         $tipo_pers = Tipo_per::orderBy('id')->pluck('nombre', 'id')->toArray();
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $datas = Persona::orderBy('id')->get();
+        $datas = Persona::name($request->get('q'))->orderBy('id', 'DESC')->paginate(); 
         return view('persona.index', compact('datas','tipo_docs','ciudades','tipo_pers'));
     }
 
@@ -70,6 +71,7 @@ class PersonaController extends Controller
      */
     public function editar($id)
     {
+    
         $tipo_pers = Tipo_per::orderBy('id')->pluck('nombre', 'id')->toArray();
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();

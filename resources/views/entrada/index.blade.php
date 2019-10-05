@@ -1,6 +1,6 @@
 @extends("theme.$theme.layout")
 @section('titulo')
-Personas
+Entradas
 @endsection
 
 @section("scripts")
@@ -8,23 +8,14 @@ Personas
 @endsection
 
 @section('contenido')
-<form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Buscar...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
 <div class="row">
     <div class="col-lg-12">
         @include('includes.mensaje')
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Personas</h3>
+                <h3 class="box-title">Entradas</h3>
                 <div class="box-tools pull-right">
-                    <a href="{{route('crear_persona')}}" class="btn btn-block btn-success btn-sm">
+                    <a href="{{route('crear_entrada')}}" class="btn btn-block btn-success btn-sm">
                         <i class="fa fa-fw fa-plus-circle"></i> Nuevo registro
                     </a>
                 </div>
@@ -54,10 +45,10 @@ Personas
                             <td>{{$data->celular}}</td>
                             <td>{{$tipo_pers[$data->tipo_per_id]}}</td>
                             <td>
-                                <a href="{{route('editar_persona', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
+                                <a href="{{route('editar_entrada', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
-                                <form action="{{route('eliminar_persona', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
+                                <form action="{{route('eliminar_entrada', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
                                     @csrf @method("delete")
                                     <button type="submit" class="btn-accion-tabla eliminar tooltipsC" title="Eliminar este registro">
                                         <i class="fa fa-fw fa-trash text-danger"></i>

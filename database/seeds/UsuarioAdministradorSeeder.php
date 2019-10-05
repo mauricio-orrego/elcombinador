@@ -21,6 +21,5 @@ class UsuarioAdministradorSeeder extends Seeder
         ]);
 
         $usuario->roles()->sync(1);
-
     }
 }

@@ -26,13 +26,13 @@ class ValidaPersona extends FormRequest
             return [
                 'nombre' => 'required|max:100' . $this->route('id'),
                 'apellido' => 'max:100',
-                'documento' => 'numeric|max:50',
-                'dv' => 'numeric|max:1',
+                'documento' => 'numeric|digits_between:1,20',
+                'dv' => 'digits_between:0,1',
                 'tipo_doc_id' => 'required',
                 'direccion' => 'required|max:100',
                 'ciudad_id' => 'required',
                 'telefono' => 'required|max:50',
-                'celular' => 'required|max:50',
+                'celular' => 'max:50',
                 'tipo_per_id' => 'required'
             ];
         }
