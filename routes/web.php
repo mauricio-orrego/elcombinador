@@ -114,5 +114,6 @@ Route::get('entrada', 'EntradaController@index')->name('entrada');
 Route::get('entrada/crear', 'EntradaController@crear')->name('crear_entrada');
 Route::post('entrada', 'EntradaController@guardar')->name('guardar_entrada');
 Route::get('entrada/{id}/editar', 'EntradaController@editar')->name('editar_entrada');
+Route::get('entrada/{id}/index', 'EntradaController@nueva')->name('nueva_entrada');
 Route::put('entrada/{id}', 'EntradaController@actualizar')->name('actualizar_entrada');
 Route::delete('entrada/{id}', 'EntradaController@eliminar')->name('eliminar_entrada');

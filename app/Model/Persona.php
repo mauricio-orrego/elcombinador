@@ -19,4 +19,18 @@ class Persona extends Model
     
     }
 
+    public function scopeProv($query, $busprov)
+    {
+        if($busprov != "")
+        {
+            $query->where('nombre', "LIKE", "%$busprov%" )
+                  ->where('tipo_per_id','1');
+        }
+        else
+        {
+            $query->where('tipo_per_id','1');
+            
+        }
+    
+    }
 }

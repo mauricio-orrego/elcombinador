@@ -17,4 +17,14 @@ $(document).ready(function () {
         container: 'body'
     });
     $('ul.sidebar-menu').find('li.active').parents('li').addClass('active');
+
+//nuevo script
+$(document).ready(function(){
+    var busprod = parametroURL('busprod');
+    console.log("prueba ajax kl",busprod);
+    if((busprod != "") && (busprod != null)){     
+            $('#modal1').modal({show: true});
+        }
+    })
+//fin script    
 });

@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ValidacionEntrada;
-use App\Http\Requests\ValidaPersona;
 use App\Model\Persona;
+use App\Models\Bodega;
+use App\Models\Categoria;
+use App\Models\Ciudad;
 use App\Models\Entrada;
+use App\Models\Producto;
+use App\Models\Tipo_doc;
+use App\Models\Tipo_per;
 use Illuminate\Http\Request;
 
 class EntradaController extends Controller
@@ -15,14 +20,30 @@ class EntradaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         can('lista-entradas');
-        $proveedores = Persona::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $datas = Entrada::orderBy('id')->get();
-        return view('entrada.index', compact('datas','proveedores'));
-  }
+        $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $datas = Persona::prov($request->get('busprov'))->orderBy('id', 'DESC')->paginate(); 
+        return view('entrada.entrada', compact('datas','tipo_docs','ciudades'));
+    }
 
+    public function nueva(Request $request, $id)
+    {
+        can('lista-entradas');
+        if($request->busprod){
+            echo "<script>$('#modal1').fadeIn('show'); </script>";
+        }
+        $tipo_pers = Tipo_per::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $datasprod = Producto::prod($request->get('busprod'))->orderBy('id','DESC')->paginate(); 
+        $datas = Persona::prov($request->get('busprov'))->where('id', "$id")->paginate(); 
+        return view('entrada.index', compact('datas','datasprod','tipo_docs','ciudades','tipo_pers','bodegas','categorias'));
+    }
     /**
      * Show the form for creating a new resource.
      *
