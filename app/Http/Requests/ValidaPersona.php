@@ -22,11 +22,11 @@ class ValidaPersona extends FormRequest
      * @return array
      */
     public function rules()
-         {//direccion	ciudad_id	telefono	celular	tipo_per_id
+         {
             return [
                 'nombre' => 'required|max:100' . $this->route('id'),
                 'apellido' => 'max:100',
-                'documento' => 'numeric|digits_between:1,20',
+                'documento' => 'numeric|digits_between:1,20|unique:persona,documento,',
                 'dv' => 'digits_between:0,1',
                 'tipo_doc_id' => 'required',
                 'direccion' => 'required|max:100',

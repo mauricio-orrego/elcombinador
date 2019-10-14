@@ -18,10 +18,9 @@ $(document).ready(function () {
     });
     $('ul.sidebar-menu').find('li.active').parents('li').addClass('active');
 
-//nuevo script
+//nuevo script captura variable en url
 $(document).ready(function(){
     var busprod = parametroURL('busprod');
-    console.log("prueba ajax kl",busprod);
     if((busprod != "") && (busprod != null)){     
             $('#modal1').modal({show: true});
         }

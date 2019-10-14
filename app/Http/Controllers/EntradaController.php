@@ -29,20 +29,21 @@ class EntradaController extends Controller
         return view('entrada.entrada', compact('datas','tipo_docs','ciudades'));
     }
 
+    public function validar(Request $request)
+    {
+        Entrada::create($request->all());
+        $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $datas = Persona::prov($request->get('busprov'))->orderBy('id', 'DESC')->paginate(); 
+        return view('entrada.validar', compact('datas','tipo_docs','ciudades'));
+    }
+
     public function nueva(Request $request, $id)
     {
         can('lista-entradas');
-        if($request->busprod){
-            echo "<script>$('#modal1').fadeIn('show'); </script>";
-        }
-        $tipo_pers = Tipo_per::orderBy('id')->pluck('nombre', 'id')->toArray();
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $datasprod = Producto::prod($request->get('busprod'))->orderBy('id','DESC')->paginate(); 
         $datas = Persona::prov($request->get('busprov'))->where('id', "$id")->paginate(); 
-        return view('entrada.index', compact('datas','datasprod','tipo_docs','ciudades','tipo_pers','bodegas','categorias'));
+        return view('entrada.entradafec', compact('datas','tipo_docs'));
     }
     /**
      * Show the form for creating a new resource.

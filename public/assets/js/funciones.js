@@ -58,6 +58,7 @@ var Biblioteca = function () {
     }
 }();
 
+//captura variables de URL
 function parametroURL(_par) {
     var _p = null;
     if (location.search) location.search.substr(1).split("&").forEach(function(pllv) {
@@ -76,3 +77,4 @@ function parametroURL(_par) {
     });
     return _p;
   }
+

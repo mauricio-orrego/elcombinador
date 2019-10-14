@@ -21,11 +21,11 @@ class ValidacionEntrada extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules($request)
     {
         return [
-            'proveedor_id' => 'required',
-            'factura' => 'required|max:30|unique:entrada,factura,' . $this->route('id'),
+            'proveedor_id.*.factura' => 'required|unique:entrada, factura_unica',
+            'factura' => 'required|max:30', $this->route('id'),
             'fecha' => 'required',
             'fecha_venci' => '',
             'forma_pago' => 'required|max:7',

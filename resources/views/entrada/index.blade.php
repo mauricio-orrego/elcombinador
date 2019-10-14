@@ -64,7 +64,6 @@ Entradas
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-            <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button>
             <h4 class="modal-title">Productos</h4>
         </div>
        <!-- body modal   -->
