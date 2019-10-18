@@ -118,3 +118,6 @@ Route::get('entrada/{id}/entradafec', 'EntradaController@nueva')->name('nueva_en
 Route::put('entrada/{id}', 'EntradaController@actualizar')->name('actualizar_entrada');
 Route::delete('entrada/{id}', 'EntradaController@eliminar')->name('eliminar_entrada');
 Route::get('entrada/validar', 'EntradaController@validar')->name('validar_entrada');
+Route::get('entrada/validarx', 'EntradaController@validarx')->name('validarx_entrada');
+Route::post('entrada/validarx', 'EntradaController@validarx')->name('validarx_entrada');
+Route::post('entrada/entradaprod', 'EntradaController@entradaprod')->name('entradaprod_entrada');

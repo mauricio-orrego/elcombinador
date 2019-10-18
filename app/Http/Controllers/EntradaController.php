@@ -29,15 +29,44 @@ class EntradaController extends Controller
         return view('entrada.entrada', compact('datas','tipo_docs','ciudades'));
     }
 
+    public function entradaprod(Request $request)
+    {
+        dd($request);
+        //dd($id=($request->entrada_id));
+        $id=($request->entrada_id);
+        $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();    
+        $datasprod = Producto::prod($request->get('busprod'))->orderBy('id', 'DESC')->paginate(); 
+        $datasent = Entrada::where('id', "$id")->orderBy('id', 'DESC')->paginate(); 
+        foreach ($datasent as $dataent)
+        $datas = Persona::prov($request->get('busprov'))->where('id', "$dataent->proveedor_id")->paginate(); 
+        return view('entrada.validar', compact('datasent','datas','tipo_docs','datasprod','bodegas','categorias'));
+    }   
+
+
+    public function validarx(Request $request)
+    {
+        $id=($request->id);
+        $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();    
+        $datasprod = Producto::prod($request->get('busprod'))->orderBy('id', 'DESC')->paginate(); 
+        $datasent = Entrada::where('id', "$id")->orderBy('id', 'DESC')->paginate(); 
+        foreach ($datasent as $dataent)
+        $datas = Persona::prov($request->get('busprov'))->where('id', "$dataent->proveedor_id")->paginate(); 
+        return view('entrada.validar', compact('datasent','datas','tipo_docs','datasprod','bodegas','categorias'));
+    }
+    
     public function validar(Request $request)
     {
         Entrada::create($request->all());
-        $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $datas = Persona::prov($request->get('busprov'))->orderBy('id', 'DESC')->paginate(); 
-        return view('entrada.validar', compact('datas','tipo_docs','ciudades'));
+        $factura=($request->factura);
+        $proveedor_id=($request->proveedor_id);
+        $datasent = Entrada::where('proveedor_id', "$proveedor_id")->where('factura', "$factura")->orderBy('id', 'DESC')->paginate(); 
+        return view('entrada.index', compact('datasent'));
     }
-
+    
     public function nueva(Request $request, $id)
     {
         can('lista-entradas');

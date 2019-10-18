@@ -16,7 +16,8 @@ Entradas
             <div class="box-header with-border">
                 <h3 class="box-title"><b>Proveedor</b></h3>
             </div>
-            <form action="{{route('validar_entrada')}}" id="form-general" class="form-horizontal" method="GET" autocomplete="off">      
+            <form action="{{route('validar_entrada')}}" id="form-general" class="form-horizontal" method="get" autocomplete="off">      
+                @csrf
                 <table class="table table-striped table-bordered table-hover" id="tabla-data">
                     <thead>
                         <tr>

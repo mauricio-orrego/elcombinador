@@ -19,6 +19,15 @@ class Persona extends Model
     
     }
 
+    public function scopeIdprov($query, $proveedor_id)
+    {
+        if($proveedor_id != "")
+        {
+            $query->where('id', "$proveedor_id" );
+        }
+    
+    }
+
     public function scopeProv($query, $busprov)
     {
         if($busprov != "")
