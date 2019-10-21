@@ -8,7 +8,6 @@ Entradas
 @section('contenido')           
 <div class="row">
     <div class="col-lg-12">
-        @include('includes.mensaje')
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Entradas</h3>
@@ -61,6 +60,44 @@ Entradas
             </div>
          </form>
      </div>
+     <table class="table table-striped table-bordered table-hover" id="tabla-data">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Costo</th>
+                            <th class="width70"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @php $suma=0; @endphp
+                        @foreach ($datasprodentrada as $dataprodentrada)
+                            <tr>
+                            <td>{{$datasprodtodos[$dataprodentrada->producto_id]}}</td>
+                            <td>{{$dataprodentrada->cantidad}}</td>
+                            <td>{{$dataprodentrada->valor}}</td>
+                            <td align="right">$ {{$sumado=($dataprodentrada->valor*$dataprodentrada->cantidad)}}</td>
+                            <td><a href="{{route('editar_producto', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
+                                    <i class="fa fa-fw fa-pencil"></i>
+                                </a>
+                                <form action="{{route('eliminar_entrada', ['id' => $dataprodentrada->id])}}" class="d-inline form-eliminar" method="POST">
+                                    @csrf @method("delete")
+                                    <button type="submit" class="btn-accion-tabla eliminar tooltipsC" title="Eliminar este registro">
+                                    <i class="fa fa-fw fa-trash text-danger"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @php $suma+= $sumado; @endphp
+                        @endforeach
+                        
+                        <tr>
+                            <td colspan="2"></td>
+                            <td><b>Total:</b></td>
+                            <td align="right"><b>$ {{ number_format($suma, 0)}}</b></td>
+                        </tr>
+                    </tbody>
+                </table> 
 <!-- modal   --> 
   <div class="modal" tabindex="-1" role="dialog" id="modal1">
   <div class="modal-dialog" role="document">

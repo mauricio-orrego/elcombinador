@@ -8,9 +8,9 @@ use App\Models\Bodega;
 use App\Models\Categoria;
 use App\Models\Ciudad;
 use App\Models\Entrada;
+use App\Models\entrada_prod;
 use App\Models\Producto;
 use App\Models\Tipo_doc;
-use App\Models\Tipo_per;
 use Illuminate\Http\Request;
 
 class EntradaController extends Controller
@@ -31,32 +31,46 @@ class EntradaController extends Controller
 
     public function entradaprod(Request $request)
     {
-        dd($request);
-        //dd($id=($request->entrada_id));
+        //dd($request);
+        entrada_prod::create($request->all());
         $id=($request->entrada_id);
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
         $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();    
+        //para la busqueda de productos
         $datasprod = Producto::prod($request->get('busprod'))->orderBy('id', 'DESC')->paginate(); 
+        //datos de la entrada
         $datasent = Entrada::where('id', "$id")->orderBy('id', 'DESC')->paginate(); 
         foreach ($datasent as $dataent)
         $datas = Persona::prov($request->get('busprov'))->where('id', "$dataent->proveedor_id")->paginate(); 
-        return view('entrada.validar', compact('datasent','datas','tipo_docs','datasprod','bodegas','categorias'));
+        //productos de entrada
+        $datasprodentrada = entrada_prod::where('entrada_id', "$id")->orderBy('id', 'DESC')->paginate(); 
+        //infoemacion sobre productos
+        $datasprodtodos = Producto::orderBy('id')->pluck('nombre', 'id')->toArray();
+        //dd($datasprodtodos);
+        return view('entrada.validar', compact('datasprodtodos','datasprodentrada','datasent','datas','tipo_docs','datasprod','bodegas','categorias'));
     }   
-
-
+    
     public function validarx(Request $request)
     {
+        //dd($request);
         $id=($request->id);
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
         $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();    
+        //para la busqueda de productos
         $datasprod = Producto::prod($request->get('busprod'))->orderBy('id', 'DESC')->paginate(); 
+        //datos de la entrada
         $datasent = Entrada::where('id', "$id")->orderBy('id', 'DESC')->paginate(); 
         foreach ($datasent as $dataent)
         $datas = Persona::prov($request->get('busprov'))->where('id', "$dataent->proveedor_id")->paginate(); 
-        return view('entrada.validar', compact('datasent','datas','tipo_docs','datasprod','bodegas','categorias'));
-    }
+        $datasprodentrada = entrada_prod::where('entrada_id', "$id")->orderBy('id', 'DESC')->paginate(); 
+        //infoemacion sobre productos
+        $datasprodtodos = Producto::orderBy('id')->pluck('nombre', 'id')->toArray();
+        //dd($datasprodtodos);
+        return view('entrada.validar', compact('datasprodtodos','datasprodentrada','datasent','datas','tipo_docs','datasprod','bodegas','categorias'));
+    }   
+    
     
     public function validar(Request $request)
     {
@@ -142,14 +156,15 @@ class EntradaController extends Controller
      */
     public function eliminar(Request $request, $id)
     {
-        if ($request->ajax()){
-            if (Entrada::destroy($id)) {
-                return response()->json(['mensaje' => 'ok']);
-            } else {
-                return response()->json(['mensaje' => 'ng']);
-            }
-        } else {
-            abort(404);
-        }
+        //dd($request);
+        entrada_prod::findOrFail($id)->delete($request->all());
+        return redirect('entrada/validarx{$id}')->with('mensaje', 'Producto borrado con exito');
+    }
+    
+    public function borrado(Request $request, $id)
+    {
+        dd($request);
+        //entrada_prod::findOrFail($id)->delete($request->all());
+        //return redirect('entrada/borrado', 'id','$id')->with('mensaje', 'Producto borrado con exito');
     }
 }
