@@ -77,10 +77,7 @@ Entradas
                             <td>{{$dataprodentrada->cantidad}}</td>
                             <td>{{$dataprodentrada->valor}}</td>
                             <td align="right">$ {{$sumado=($dataprodentrada->valor*$dataprodentrada->cantidad)}}</td>
-                            <td><a href="{{route('editar_producto', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
-                                    <i class="fa fa-fw fa-pencil"></i>
-                                </a>
-                                <form action="{{route('eliminar_entrada', ['id' => $dataprodentrada->id])}}" class="d-inline form-eliminar" method="POST">
+                            <td><form action="{{route('eliminar_entrada', ['id' => $dataent->id,'idprod' => $dataprodentrada->id])}}" class="d-inline form-eliminar" method="POST">
                                     @csrf @method("delete")
                                     <button type="submit" class="btn-accion-tabla eliminar tooltipsC" title="Eliminar este registro">
                                     <i class="fa fa-fw fa-trash text-danger"></i>
@@ -89,12 +86,14 @@ Entradas
                             </td>
                         </tr>
                         @php $suma+= $sumado; @endphp
-                        @endforeach
-                        
+                        @endforeach             
                         <tr>
                             <td colspan="2"></td>
                             <td><b>Total:</b></td>
-                            <td align="right"><b>$ {{ number_format($suma, 0)}}</b></td>
+                            <td align="right"><b>$ {{ number_format($suma, 0)}}</b>
+                            <input type="hidden" name="total" id="total" value="{{$suma}}">
+                            <input type="hidden" name="id" id="id" value="{{$dataent->id}}">
+                        </td>
                         </tr>
                     </tbody>
                 </table> 
@@ -145,4 +144,8 @@ Entradas
      </div>
   </div>
 </div>
+<div class="modal-footer">
+          <a href="{{route('finentrada_entrada', ['id' => $dataent->id,'total' => $suma])}}" >
+          <button type="button" class="btn btn-default">Finalizar</button></a>
+        </div>
 @endsection

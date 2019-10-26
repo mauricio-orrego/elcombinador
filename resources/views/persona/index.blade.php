@@ -1,6 +1,6 @@
 @extends("theme.$theme.layout")
 @section('titulo')
-Personas
+Proveedores y Clientes
 @endsection
 
 @section("scripts")
@@ -22,7 +22,7 @@ Personas
         @include('includes.mensaje')
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Personas</h3>
+                <h3 class="box-title">Proveedores y Clientes</h3>
                 <div class="box-tools pull-right">
                     <a href="{{route('crear_persona')}}" class="btn btn-block btn-success btn-sm">
                         <i class="fa fa-fw fa-plus-circle"></i> Nuevo registro

@@ -1,18 +1,17 @@
 @extends("theme.$theme.layout")
 @section('titulo')
-Personas
+Entradas
 @endsection
-
 @section("scripts")
 <script src="{{asset("assets/pages/scripts/index.js")}}" type="text/javascript"></script>
 @endsection
-
 @section('contenido')
 <div class="row">
     <div class="col-lg-12">
         @include('includes.mensaje')
         <div class="box">
             <div class="box-header with-border">
+            <h1 class="title text-center"><strong>Entradas</strong> </h1>
                 <h3 class="box-title">Seleccione proveedor</h3>
             </div>
             <div class="box-body">

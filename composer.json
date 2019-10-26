@@ -41,7 +41,7 @@
             "database/factories"
         ],
         "files":[
-            "app/Helpers/biblioteca.php"
+            "app/Helpers/inventario.php"
         ]
     },
     "autoload-dev": {

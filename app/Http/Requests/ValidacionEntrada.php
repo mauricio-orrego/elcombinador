@@ -21,17 +21,26 @@ class ValidacionEntrada extends FormRequest
      *
      * @return array
      */
-    public function rules($request)
+    public function rules()
     {
         return [
-            'factura' => 'required|max:30', $this->route('id'),
+            'factura & proveedor_id' => 'required|unique:entrada,factura, proveedor_id,',
             'fecha' => 'required',
             'fecha_venci' => '',
             'forma_pago' => 'required|max:7',
-            'factura_unica' => 'unique:entrada, factura_unica'. $this->route('id'),
-            'estado' => 'required|max:1',
-            'total' => 'numeric|digits_between:1,10',
-            'iva' => 'numeric|digits_between:1,10'
+            'estado' => '',
+            'total' => '',
+            'iva' => '',
+            
+        ];
+        
+    }
+    
+    /*public function messages()
+    {
+        return [
+            'factura_unica.same' =>  'That file no longer exists or is invalid'
         ];
     }
+    */
 }

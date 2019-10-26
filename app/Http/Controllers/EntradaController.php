@@ -22,7 +22,7 @@ class EntradaController extends Controller
      */
     public function index(Request $request)
     {
-        can('lista-entradas');
+        can('listar-entradas');
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
         $datas = Persona::prov($request->get('busprov'))->orderBy('id', 'DESC')->paginate(); 
@@ -31,7 +31,6 @@ class EntradaController extends Controller
 
     public function entradaprod(Request $request)
     {
-        //dd($request);
         entrada_prod::create($request->all());
         $id=($request->entrada_id);
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
@@ -53,7 +52,6 @@ class EntradaController extends Controller
     
     public function validarx(Request $request)
     {
-        //dd($request);
         $id=($request->id);
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
@@ -72,7 +70,7 @@ class EntradaController extends Controller
     }   
     
     
-    public function validar(Request $request)
+    public function validar(ValidacionEntrada $request)
     {
         Entrada::create($request->all());
         $factura=($request->factura);
@@ -154,17 +152,35 @@ class EntradaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function eliminar(Request $request, $id)
+    public function eliminar(Request $request)
     {
-        //dd($request);
-        entrada_prod::findOrFail($id)->delete($request->all());
-        return redirect('entrada/validarx{$id}')->with('mensaje', 'Producto borrado con exito');
-    }
+        $idprod=($request->idprod);
+        $id=($request->id);
+        entrada_prod::findOrFail($idprod)->delete($request->all());
+        $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();    
+        //para la busqueda de productos
+        $datasprod = Producto::prod($request->get('busprod'))->orderBy('id', 'DESC')->paginate(); 
+        //datos de la entrada
+        $datasent = Entrada::where('id', "$id")->orderBy('id', 'DESC')->paginate(); 
+        foreach ($datasent as $dataent)
+        $datas = Persona::prov($request->get('busprov'))->where('id', "$dataent->proveedor_id")->paginate(); 
+        $datasprodentrada = entrada_prod::where('entrada_id', "$id")->orderBy('id', 'DESC')->paginate(); 
+        //infoemacion sobre productos
+        $datasprodtodos = Producto::orderBy('id')->pluck('nombre', 'id')->toArray();
+        return view('entrada.validar', compact('datasprodtodos','datasprodentrada','datasent','datas','tipo_docs','datasprod','bodegas','categorias'))->with('mensaje', 'Producto borrado con exito');
+    }   
     
-    public function borrado(Request $request, $id)
+    public function finentrada(Request $request)
     {
-        dd($request);
-        //entrada_prod::findOrFail($id)->delete($request->all());
-        //return redirect('entrada/borrado', 'id','$id')->with('mensaje', 'Producto borrado con exito');
+        $id=($request->id);
+        $total=($request->total);
+        $affectedRows = Entrada::where('id', "$id")->update(array('valor' => $total));
+        can('lista-entradas');
+        $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $datas = Persona::prov($request->get('busprov'))->orderBy('id', 'DESC')->paginate(); 
+        return view('entrada.entrada', compact('datas','tipo_docs','ciudades'))->with('mensaje', 'Entrada almacenada con exito');
     }
 }
