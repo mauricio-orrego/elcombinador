@@ -73,7 +73,7 @@ Route::get('producto/crear', 'ProductoController@crear')->name('crear_producto')
 Route::post('producto', 'ProductoController@guardar')->name('guardar_producto');
 Route::get('producto/{id}/editar', 'ProductoController@editar')->name('editar_producto');
 Route::put('producto/{id}', 'ProductoController@actualizar')->name('actualizar_producto');
-Route::delete('producto/{id}', 'ProductoController@eliminar')->name('eliminar_producto');
+Route::get('producto/{id}', 'ProductoController@eliminar')->name('eliminar_producto');
 /*RUTAS CIUDAD*/
 Route::get('ciudad', 'CiudadController@index')->name('ciudad');
 Route::get('ciudad/crear', 'CiudadController@crear')->name('crear_ciudad');

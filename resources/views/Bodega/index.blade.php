@@ -31,21 +31,20 @@ Bodegas
                     <tbody>
                         @foreach ($datas as $data)
                         <tr>
-                            <td>{{$data->nombre}}</td>
+                           <td>{{$data->nombre}}</td>
                             <td>
                                 <a href="{{route('editar_bodega', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
-                                    <i class="fa fa-fw fa-pencil"></i>
+                                   <i class="fa fa-fw fa-pencil"></i>
                                 </a>
                                 <form action="{{route('eliminar_bodega', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
-                                    @csrf @method("delete")
+                                   @csrf @method("delete")
                                     <button type="submit" class="btn-accion-tabla eliminar tooltipsC" title="Eliminar este registro">
-                                        <i class="fa fa-fw fa-trash text-danger"></i>
+                                      <i class="fa fa-fw fa-trash text-danger"></i>
                                     </button>
                                 </form>
                             </td>
                         </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>

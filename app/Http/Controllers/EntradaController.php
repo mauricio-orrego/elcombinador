@@ -25,7 +25,7 @@ class EntradaController extends Controller
         can('listar-entradas');
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $datas = Persona::prov($request->get('busprov'))->orderBy('id', 'DESC')->paginate(); 
+        $datas = Persona::prov($request->get('busprov'))->orderBy('id', 'DESC')->paginate(10); 
         return view('entrada.entrada', compact('datas','tipo_docs','ciudades'));
     }
 
@@ -46,7 +46,6 @@ class EntradaController extends Controller
         $datasprodentrada = entrada_prod::where('entrada_id', "$id")->orderBy('id', 'DESC')->paginate(); 
         //infoemacion sobre productos
         $datasprodtodos = Producto::orderBy('id')->pluck('nombre', 'id')->toArray();
-        //dd($datasprodtodos);
         return view('entrada.validar', compact('datasprodtodos','datasprodentrada','datasent','datas','tipo_docs','datasprod','bodegas','categorias'));
     }   
     

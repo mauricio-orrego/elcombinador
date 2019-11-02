@@ -8,10 +8,9 @@
     <label for="depto_id" class="col-lg-3 control-label requerido">Departamento</label>
     <div class="col-lg-8">
         <select name="depto_id" id="depto_id" class="form-control" unique required>
-        <option value="{{$data->depto_id}}">{{$deptos[$data->depto_id]}}</option>
-            @foreach($deptos as $id => $nombre)  
-              <option value="{{$id}}" {{old('depto_id', $deptos[$data->depto_id] ?? "") == $id, $deptos[$data->depto_id] ? "selected" : ""}}>{{$nombre}}</option>
-            @endforeach
+            @foreach($deptos as $id => $nombre)
+                <option value="{{$id}}" {{old("depto_id", $data->$id ?? "") == $id ? "selected" : ""}}>{{$nombre}}</option>
+                @endforeach
         </select>
     </div>
 </div>

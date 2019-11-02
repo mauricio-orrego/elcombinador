@@ -1,12 +1,10 @@
 @extends("theme.$theme.layout")
 @section('titulo')
-    Ciudad
+    Salidas
 @endsection
-
 @section("scripts")
 <script src="{{asset("assets/pages/scripts/crear.js")}}" type="text/javascript"></script>
 @endsection
-
 @section('contenido')
 <div class="row">
     <div class="col-lg-12">
@@ -14,22 +12,22 @@
         @include('includes.mensaje')
         <div class="box box-danger">
             <div class="box-header with-border">
-                <h3 class="box-title">Crear Ciudad</h3>
+                <h3 class="box-title">Editar salida</h3>
                 <div class="box-tools pull-right">
-                    <a href="{{route('ciudad')}}" class="btn btn-block btn-info btn-sm">
+                    <a href="{{route('salida')}}" class="btn btn-block btn-info btn-sm">
                         <i class="fa fa-fw fa-reply-all"></i> Volver al listado
                     </a>
                 </div>
             </div>
-            <form action="{{route('guardar_ciudad')}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
-                @csrf
+            <form action="{{route('actualizar_salida', ['id' => $data->id])}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
+                @csrf @method("put")
                 <div class="box-body">
-                    @include('ciudad.form2')
+                    @include('salida.form')
                 </div>
                 <div class="box-footer">
                     <div class="col-lg-3"></div>
                     <div class="col-lg-6">
-                        @include('includes.boton-form-crear')
+                        @include('includes.boton-form-editar')
                     </div>
                 </div>
             </form>

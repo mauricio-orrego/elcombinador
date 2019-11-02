@@ -22,7 +22,7 @@ class ValidacionProducto extends FormRequest
      * @return array
      */
     public function rules()
-    {//id	nombre	costo	valorventa	bodega_id	categoria_id
+    {
         return [
             'nombre' => 'required|max:100' . $this->route('id'),
             'costo' => 'required|numeric|digits_between:1,11',

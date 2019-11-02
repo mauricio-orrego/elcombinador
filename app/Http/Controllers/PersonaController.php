@@ -23,7 +23,7 @@ class PersonaController extends Controller
         $tipo_pers = Tipo_per::orderBy('id')->pluck('nombre', 'id')->toArray();
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $datas = Persona::name($request->get('q'))->orderBy('id', 'DESC')->paginate(); 
+        $datas = Persona::name($request->get('q'))->orderBy('id', 'DESC')->paginate(10); 
         return view('persona.index', compact('datas','tipo_docs','ciudades','tipo_pers'));
     }
 

@@ -53,9 +53,9 @@ Entradas
                              </td>
                         </tr>
                         @endforeach
-
                     </tbody>
                 </table>
+                {{ $datas->links() }}
             </div>
         </div>
     </div>

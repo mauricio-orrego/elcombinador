@@ -1,6 +1,6 @@
 @extends("theme.$theme.layout")
 @section('titulo')
-    Ciudad
+    Salidas
 @endsection
 
 @section("scripts")
@@ -14,17 +14,17 @@
         @include('includes.mensaje')
         <div class="box box-danger">
             <div class="box-header with-border">
-                <h3 class="box-title">Crear Ciudad</h3>
+                <h3 class="box-title">Crear entrada</h3>
                 <div class="box-tools pull-right">
-                    <a href="{{route('ciudad')}}" class="btn btn-block btn-info btn-sm">
+                    <a href="{{route('entrada')}}" class="btn btn-block btn-info btn-sm">
                         <i class="fa fa-fw fa-reply-all"></i> Volver al listado
                     </a>
                 </div>
             </div>
-            <form action="{{route('guardar_ciudad')}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
+            <form action="{{route('guardar_entrada')}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
                 @csrf
                 <div class="box-body">
-                    @include('ciudad.form2')
+                    @include('salida.form')
                 </div>
                 <div class="box-footer">
                     <div class="col-lg-3"></div>

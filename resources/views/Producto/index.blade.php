@@ -14,7 +14,16 @@ Productos
         <div class="box">
             <div class="box-header with-border">
                 <h3 class="box-title">Productos</h3>
-                <div class="box-tools pull-right">
+                <form action="#" method="get" class="sidebar-form">
+                        <div class="input-group">
+                        <input type="text" name="busprod" class="form-control" placeholder="Buscar..." autofocus>
+                        <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>  
+            </div>
+         </form>
+                  <div class="box-tools pull-right">
                     <a href="{{route('crear_producto')}}" class="btn btn-block btn-success btn-sm">
                         <i class="fa fa-fw fa-plus-circle"></i> Nuevo registro
                     </a>
@@ -42,20 +51,18 @@ Productos
                             <td>{{$categorias[$data->categoria_id]}}</td>
                             <td>
                                 <a href="{{route('editar_producto', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
-                                    <i class="fa fa-fw fa-pencil"></i>
+                                   <i class="fa fa-fw fa-pencil"></i>
                                 </a>
-                                <form action="{{route('eliminar_producto', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
-                                    @csrf @method("delete")
-                                    <button type="submit" class="btn-accion-tabla eliminar tooltipsC" title="Eliminar este registro">
-                                        <i class="fa fa-fw fa-trash text-danger"></i>
-                                    </button>
-                                </form>
+                                <a href="{{route('eliminar_producto', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Borrar este registro" OnClick="if (! confirm('Esta seguro de borrar este producto')) return false;">
+                                <i class="fa fa-fw fa-trash text-danger"></i>
+                                   @csrf @method("get")
+                                </a>
                             </td>
                         </tr>
                         @endforeach
-
                     </tbody>
                 </table>
+                {{ $datas->links() }}
             </div>
         </div>
     </div>

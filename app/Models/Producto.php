@@ -10,15 +10,11 @@ class Producto extends Model
     protected $fillable = ['nombre', 'costo', 'valorventa', 'bodega_id', 'categoria_id'];
     protected $guarded = ['id'];
 
-    public function scopeProd($query, $busprov)
+    public function scopeProd($query, $busprod)
     {
-        if($busprov != "")
+        if($busprod != "")
         {
-            $query->where('nombre', "LIKE", "%$busprov%" );
-        }
-    
+            $query->where('nombre', "LIKE", "%$busprod%" );
+        }    
     }
-
-
 }
-

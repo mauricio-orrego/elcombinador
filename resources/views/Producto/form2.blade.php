@@ -19,9 +19,9 @@
 <div class="form-group">
     <label for="bodega_id" class="col-lg-3 control-label requerido">Bodega</label>
     <div class="col-lg-8">
-        <select name="bodega_id" id="bodega_id" class="form-control" unique required>
-            <option value="{{$data->bodega_id}}">{{$bodegas[$data->bodega_id]}}</option>
-               @foreach($bodegas as $id => $nombre)
+        <select name="bodega_id" id="bodega_id" class="form-control" required>
+            <option value="">---- Seleccione bodega ----</option>
+            @foreach($bodegas as $id => $nombre)
                 <option value="{{$id}}" {{old("bodega_id", $data->$id ?? "") == $id ? "selected" : ""}}>{{$nombre}}</option>
                 @endforeach
         </select>
@@ -31,7 +31,7 @@
     <label for="categoria_id" class="col-lg-3 control-label requerido">Categoria</label>
     <div class="col-lg-8">
         <select name="categoria_id" id="categoria_id" class="form-control" unique required>
-            <option value="{{$data->categoria_id}}">{{$categorias[$data->categoria_id]}}</option>
+        <option value="">---- Seleccione categoria ----</option>
             @foreach($categorias as $id => $nombre)
                 <option value="{{$id}}" {{old("categoria_id", $data->$id ?? "") == $id ? "selected" : ""}}>{{$nombre}}</option>
             @endforeach

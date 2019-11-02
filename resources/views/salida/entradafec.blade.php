@@ -1,9 +1,9 @@
 @extends("theme.$theme.layout")
 @section('titulo')
-Entradas
+Salidas
 @endsection
 @section("scripts")
-<script src="{{asset("assets/pages/scripts/entrada/crear.js")}}" type="text/javascript"></script>
+<script src="{{asset("assets/pages/scripts/salida/crear.js")}}" type="text/javascript"></script>
 <script src="{{asset("assets/pages/scripts/index.js")}}" type="text/javascript"></script>
 @endsection
 @section('contenido')
@@ -13,9 +13,9 @@ Entradas
         @include('includes.mensaje')
         <div class="box">
             <div class="box-header with-border">
-            <h1 class="title text-center"><strong>Entradas</strong> </h1>
+            <h1 class="title text-center"><strong>Salidas</strong> </h1>
             </div>
-            <form action="{{route('validar_entrada')}}" id="form-general" class="form-horizontal" method="get" autocomplete="off">      
+            <form action="{{route('validar_salida')}}" id="form-general" class="form-horizontal" method="get" autocomplete="off">      
                 @csrf
                 <table class="table table-striped table-bordered table-hover" id="tabla-data">
                     <tr>

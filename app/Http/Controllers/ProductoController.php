@@ -6,7 +6,7 @@ use App\Http\Requests\ValidacionProducto;
 use App\Models\Bodega;
 use App\Models\Categoria;
 use App\Models\Producto;
-use Illuminate\Http\admin\Request;
+use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
@@ -15,12 +15,13 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         can('crear-producto');
         $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();
         $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
-        $datas = Producto::orderBy('id')->get();
+        //para la busqueda de productos
+        $datas = Producto::prod($request->get('busprod'))->orderBy('nombre', 'ASC')->paginate(14); 
         return view('producto.index', compact('datas','bodegas','categorias'));
     }
 
@@ -45,7 +46,7 @@ class ProductoController extends Controller
     public function guardar(ValidacionProducto $request)
     {
         Producto::create($request->all());
-        return redirect('producto')->with('mensaje', 'Producto creada con exito');
+        return redirect('producto')->with('mensaje', 'Producto creado con exito');
     }
 
     /**
@@ -92,16 +93,9 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function eliminar(Request $request, $id)
-    {
-        if ($request->ajax()){
-            if (Producto::destroy($id)) {
-                return response()->json(['mensaje' => 'ok']);
-            } else {
-                return response()->json(['mensaje' => 'ng']);
-            }
-        } else {
-            abort(404);
-        }
+    public function eliminar($request)
+    {     
+        Producto::destroy($request);
+        return redirect('producto')->with('mensaje', 'Producto borrado con exito');
     }
 }

@@ -24,7 +24,7 @@
             <form action="{{route('guardar_producto')}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
                 @csrf
                 <div class="box-body">
-                    @include('producto.form')
+                    @include('producto.form2')
                 </div>
                 <div class="box-footer">
                     <div class="col-lg-3"></div>
