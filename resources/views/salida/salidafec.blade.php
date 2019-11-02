@@ -50,8 +50,9 @@ Salidas
                         <tr>
                             <td><label for="fecha" class="col-lg-9 control-label requerido">Forma de pago</label></td><td>
                                 <select class="form-control" id="forma_pago" name="forma_pago"  value="{{ old('forma_pago') }}" required>
-                                <option value=""></option>
                                 <option value="Contado">Contado</option>
+                                <option value="Tdebito">Tarjeta debito</option>
+                                <option value="Tcredit">Tarjeta credito</option>
                                 <option value="Credito">Credito</option>
                                 </select>
                             </td>

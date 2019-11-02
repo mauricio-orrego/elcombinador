@@ -121,3 +121,16 @@ Route::get('entrada/validar', 'EntradaController@validar')->name('validar_entrad
 Route::get('entrada/validarx', 'EntradaController@validarx')->name('validarx_entrada');
 Route::post('entrada/validarx', 'EntradaController@entradaprod')->name('entradaprod_entrada');
 Route::get('entrada/finentrada', 'EntradaController@finentrada')->name('finentrada_entrada');
+/*RUTAS salida*/
+Route::get('salida', 'salidaController@index')->name('salida');
+Route::get('salida/crear', 'salidaController@crear')->name('crear_salida');
+Route::post('salida', 'salidaController@guardar')->name('guardar_salida');
+Route::get('salida/{id}/editar', 'salidaController@editar')->name('editar_salida');
+Route::get('salida/{id}/salidafec', 'salidaController@nueva')->name('nueva_salida');
+Route::put('salida/{id}', 'salidaController@actualizar')->name('actualizar_salida');
+Route::delete('salida/validarx', 'salidaController@eliminar')->name('eliminar_salida');
+Route::get('salida/validar', 'salidaController@validar')->name('validar_salida');
+Route::get('salida/validarx', 'salidaController@validarx')->name('validarx_salida');
+Route::post('salida/validarx', 'salidaController@salidaprod')->name('salidaprod_salida');
+Route::get('salida/finsalida', 'salidaController@finsalida')->name('finsalida_salida');
+

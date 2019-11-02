@@ -12,7 +12,7 @@ Salidas
         <div class="box">
             <div class="box-header with-border">
             <h1 class="title text-center"><strong>Salidas</strong> </h1>
-                <h3 class="box-title">Seleccione proveedor</h3>
+                <h3 class="box-title">Seleccione Cliente</h3>
             </div>
             <div class="box-body">
             <form action="#" method="get" class="sidebar-form">
