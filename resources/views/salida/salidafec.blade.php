@@ -23,7 +23,7 @@ Salidas
                 <table class="table table-striped table-bordered table-hover" id="tabla-data">
                     <tbody>
                         @foreach ($datas as $data)
-                         <tr><td colspan="2"> <h3 class="box-title"><b>Proveedor</b></h3></td></tr>
+                         <tr><td colspan="2"> <h3 class="box-title"><b>cliente</b></h3></td></tr>
                          <tr><td><label for="nombre" class="col-lg-3 control-label">Nombre:</label></td><td>{{$data->nombre}} {{$data->apellido}}</td></tr>
                          <tr><td><label for="documento" class="col-lg-3 control-label">Documento:</label></td><td>{{$tipo_docs[$data->tipo_doc_id]}} {{$data->documento}}-{{$data->dv}}</td></tr>
                          <tr><td><label for="direccion" class="col-lg-3 control-label">Direccion:</label></td><td>{{$data->direccion}}</td></tr>
@@ -32,12 +32,14 @@ Salidas
                         @endforeach
                     </table>
                     </td>   
-                    <td>
-                    <table class="table table-striped table-bordered table-hover" id="tabla-data">
+                    <td>   
+                        <table class="table table-striped table-bordered table-hover" id="tabla-data">
                         <tr><td colspan="2"> <h3 class="box-title"><b>Documento</b></h3></td></tr>
-                        <tr><td><label for="factura" class="col-md-9 control-label requerido">Numero factura</label></td>
-                            <td><input type="text" name="factura" id="factura" class="form-control" value="{{ old('factura') }}" required autofocus></td>
-                            <input type="hidden" name="proveedor_id" id="proveedor_id" class="form-control" value="{{$data->id}}" required>
+                        <tr><td><label for="factura" class="col-md-9 control-label requerido">Numero salida</label></td>
+                        @foreach ($salidamax as $numerosalida)
+                        @endforeach
+                        <td><input type="text" name="factura" id="factura" class="form-control" value="{{($numerosalida->id)+1}}" readonly></td>
+                        <input type="hidden" name="cliente_id" id="cliente_id" class="form-control" value="{{$data->id}}" required>
                         </tr>
                         <tr>
                             <td><label for="fecha" class="col-lg-5 control-label">Fecha</label></td>
@@ -49,7 +51,7 @@ Salidas
                         </tr>
                         <tr>
                             <td><label for="fecha" class="col-lg-9 control-label requerido">Forma de pago</label></td><td>
-                                <select class="form-control" id="forma_pago" name="forma_pago"  value="{{ old('forma_pago') }}" required>
+                                <select class="form-control" id="forma_pago" name="forma_pago"  value="{{ old('forma_pago') }}" required autofocus> 
                                 <option value="Contado">Contado</option>
                                 <option value="Tdebito">Tarjeta debito</option>
                                 <option value="Tcredit">Tarjeta credito</option>

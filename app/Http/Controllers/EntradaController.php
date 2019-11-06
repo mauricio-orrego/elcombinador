@@ -51,7 +51,12 @@ class EntradaController extends Controller
     
     public function validarx(Request $request)
     {
-        $id=($request->id);
+         if($id=($request->entrada_id)==false){
+            $id=($request->id);
+        }else{
+            $id=($request->entrada_id);
+            entrada_prod::create($request->all());
+        }
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
         $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();    

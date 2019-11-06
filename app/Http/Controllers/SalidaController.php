@@ -29,6 +29,10 @@ class salidaController extends Controller
         return view('salida.salida', compact('datas','tipo_docs','ciudades'));
     }
 
+    public function borrado(Request $request)
+    {
+        dd($request);
+    }
     public function salidaprod(Request $request)
     {
         salida_prod::create($request->all());
@@ -39,33 +43,39 @@ class salidaController extends Controller
         //para la busqueda de productos
         $datasprod = Producto::prod($request->get('busprod'))->orderBy('id', 'DESC')->paginate(); 
         //datos de la salida
-        $datasent = salida::where('id', "$id")->orderBy('id', 'DESC')->paginate(); 
-        foreach ($datasent as $dataent)
-        $datas = Persona::clie($request->get('busprov'))->where('id', "$dataent->cliente_id")->paginate(); 
+        $datassal = salida::where('id', "$id")->orderBy('id', 'DESC')->paginate(); 
+        foreach ($datassal as $datasal)
+        $datas = Persona::clie($request->get('busprov'))->where('id', "$datasal->cliente_id")->paginate(); 
         //productos de salida
         $datasprodsalida = salida_prod::where('salida_id', "$id")->orderBy('id', 'DESC')->paginate(); 
         //infoemacion sobre productos
         $datasprodtodos = Producto::orderBy('id')->pluck('nombre', 'id')->toArray();
-        return view('salida.validar', compact('datasprodtodos','datasprodsalida','datasent','datas','tipo_docs','datasprod','bodegas','categorias'));
+        return view('salida.validar', compact('datasprodtodos','datasprodsalida','datassal','datas','tipo_docs','datasprod','bodegas','categorias'));
     }   
     
     public function validarx(Request $request)
     {
-        $id=($request->id);
+        //dd($request);
+        if($id=($request->salida_id)==false){
+            $id=($request->id);
+        }else{
+            $id=($request->salida_id);
+            salida_prod::create($request->all());
+        }
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
         $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();    
         //para la busqueda de productos
         $datasprod = Producto::prod($request->get('busprod'))->orderBy('id', 'DESC')->paginate(); 
         //datos de la salida
-        $datasent = salida::where('id', "$id")->orderBy('id', 'DESC')->paginate(); 
-        foreach ($datasent as $dataent)
-        $datas = Persona::clie($request->get('busprov'))->where('id', "$dataent->cliente_id")->paginate(); 
+        $datassal = salida::where('id', "$id")->orderBy('id', 'DESC')->paginate(); 
+        foreach ($datassal as $datasal)
+        $datas = Persona::clie($request->get('busprov'))->where('id', "$datasal->cliente_id")->paginate(); 
         $datasprodsalida = salida_prod::where('salida_id', "$id")->orderBy('id', 'DESC')->paginate(); 
         //infoemacion sobre productos
         $datasprodtodos = Producto::orderBy('id')->pluck('nombre', 'id')->toArray();
         //dd($datasprodtodos);
-        return view('salida.validar', compact('datasprodtodos','datasprodsalida','datasent','datas','tipo_docs','datasprod','bodegas','categorias'));
+        return view('salida.validar', compact('datasprodtodos','datasprodsalida','datassal','datas','tipo_docs','datasprod','bodegas','categorias'));
     }   
     
     
@@ -74,8 +84,8 @@ class salidaController extends Controller
         salida::create($request->all());
         $factura=($request->factura);
         $cliente_id=($request->cliente_id);
-        $datasent = salida::where('cliente_id', "$cliente_id")->where('factura', "$factura")->orderBy('id', 'DESC')->paginate(); 
-        return view('salida.index', compact('datasent'));
+        $datassal = salida::where('cliente_id', "$cliente_id")->where('factura', "$factura")->orderBy('id', 'DESC')->paginate(); 
+        return view('salida.index', compact('datassal'));
     }
     
     public function nueva(Request $request, $id)
@@ -83,42 +93,10 @@ class salidaController extends Controller
         can('lista-salidas');
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $datas = Persona::clie($request->get('busprov'))->where('id', "$id")->paginate(); 
-        return view('salida.salidafec', compact('datas','tipo_docs'));
+        //numero salida maximo
+        $salidamax = salida::max()->get();
+        return view('salida.salidafec', compact('datas','tipo_docs','salidamax'));
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function crear()
-    {
-        $clientees = Persona::orderBy('id')->pluck('nombre', 'id')->toArray();
-        return view('producto.crear', compact('bodegas','clientees'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function guardar(Validacionsalida $request)
-    {
-        Producto::create($request->all());
-        return redirect('producto')->with('mensaje', 'Producto creada con exito');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -162,13 +140,13 @@ class salidaController extends Controller
         //para la busqueda de productos
         $datasprod = Producto::prod($request->get('busprod'))->orderBy('id', 'DESC')->paginate(); 
         //datos de la salida
-        $datasent = salida::where('id', "$id")->orderBy('id', 'DESC')->paginate(); 
-        foreach ($datasent as $dataent)
-        $datas = Persona::clie($request->get('busprov'))->where('id', "$dataent->cliente_id")->paginate(); 
+        $datassal = salida::where('id', "$id")->orderBy('id', 'DESC')->paginate(); 
+        foreach ($datassal as $datasal)
+        $datas = Persona::clie($request->get('busprov'))->where('id', "$datasal->cliente_id")->paginate(); 
         $datasprodsalida = salida_prod::where('salida_id', "$id")->orderBy('id', 'DESC')->paginate(); 
         //infoemacion sobre productos
         $datasprodtodos = Producto::orderBy('id')->pluck('nombre', 'id')->toArray();
-        return view('salida.validar', compact('datasprodtodos','datasprodsalida','datasent','datas','tipo_docs','datasprod','bodegas','categorias'))->with('mensaje', 'Producto borrado con exito');
+        return view('salida.validar', compact('datasprodtodos','datasprodsalida','datassal','datas','tipo_docs','datasprod','bodegas','categorias'))->with('mensaje', 'Producto borrado con exito');
     }   
     
     public function finsalida(Request $request)

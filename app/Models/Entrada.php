@@ -9,6 +9,5 @@ class Entrada extends Model
     protected $table = "entrada";
     protected $fillable = ['proveedor_id', 'factura', 'fecha', 'fecha_venci', 'forma_pago', 'estado'];
     protected $guarded = ['id'];
-
 }
 

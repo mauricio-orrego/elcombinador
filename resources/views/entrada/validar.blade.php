@@ -58,13 +58,14 @@ Entradas
                 </button>
               </span>  
             </div>
-         </form>
+         
      </div>
      <table class="table table-striped table-bordered table-hover" id="tabla-data">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
+                            <th width="50%">Nombre</th>
                             <th>Cantidad</th>
+                            <th>Costo U/D</th>
                             <th>Costo</th>
                             <th class="width70"></th>
                         </tr>
@@ -74,8 +75,8 @@ Entradas
                         @foreach ($datasprodentrada as $dataprodentrada)
                             <tr>
                             <td>{{$datasprodtodos[$dataprodentrada->producto_id]}}</td>
-                            <td>{{$dataprodentrada->cantidad}}</td>
-                            <td>{{$dataprodentrada->valor}}</td>
+                            <td align="right">{{$dataprodentrada->cantidad}}</td>
+                            <td align="right">{{$dataprodentrada->valor}}</td>
                             <td align="right">$ {{$sumado=($dataprodentrada->valor*$dataprodentrada->cantidad)}}</td>
                             <td><form action="{{route('eliminar_entrada', ['id' => $dataent->id,'idprod' => $dataprodentrada->id])}}" class="d-inline form-eliminar" method="POST">
                                     @csrf @method("delete")
@@ -105,8 +106,6 @@ Entradas
             <h4 class="modal-title">Productos</h4>
         </div>
        <!-- body modal   -->
-       <form action="{{route('entradaprod_entrada')}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
-                @csrf
         <div class="modal-body">
                 <table class="table table-striped table-bordered table-hover" id="tabla-data">
                     <thead>
@@ -120,6 +119,8 @@ Entradas
                     </thead>
                     <tbody>
                         @foreach ($datasprod as $dataprod)
+                        <form action="{{route('entradaprod_entrada')}}" id="form-general" class="form-horizontal" method="POST" autocomplete="off">
+                         @csrf
                         <tr>
                             <td>{{$dataprod->nombre}}</td>
                             <td>{{$bodegas[$dataprod->bodega_id]}}</td>
@@ -132,6 +133,7 @@ Entradas
                            <button type="sumbit" class="btn btn-default" autofocus>Agregar</button></a>
                         </td>
                      </tr>
+                     </form>
                    @endforeach
                  </tbody>
               </table>

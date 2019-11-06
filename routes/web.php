@@ -133,4 +133,5 @@ Route::get('salida/validar', 'salidaController@validar')->name('validar_salida')
 Route::get('salida/validarx', 'salidaController@validarx')->name('validarx_salida');
 Route::post('salida/validarx', 'salidaController@salidaprod')->name('salidaprod_salida');
 Route::get('salida/finsalida', 'salidaController@finsalida')->name('finsalida_salida');
+Route::get('salida/borrado', 'salidaController@borrado')->name('borrado_salida');
 

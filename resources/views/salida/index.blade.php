@@ -1,3 +1,3 @@
-@foreach ($datasent as $dataent)
-<script>window.location.replace("{{route('validarx_entrada', ['id' => $dataent->id])}}"); </script>
+@foreach ($datassal as $datasal)
+<script>window.location.replace("{{route('validarx_salida', ['id' => $datasal->id])}}"); </script>
 @endforeach
