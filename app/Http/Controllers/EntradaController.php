@@ -22,7 +22,7 @@ class EntradaController extends Controller
      */
     public function index(Request $request)
     {
-        can('listar-entradas');
+        //can('listar-entradas');
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
         $datas = Persona::prov($request->get('busprov'))->orderBy('id', 'DESC')->paginate(10); 
@@ -85,7 +85,6 @@ class EntradaController extends Controller
     
     public function nueva(Request $request, $id)
     {
-        can('lista-entradas');
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $datas = Persona::prov($request->get('busprov'))->where('id', "$id")->paginate(); 
         return view('entrada.entradafec', compact('datas','tipo_docs'));
@@ -181,7 +180,7 @@ class EntradaController extends Controller
         $id=($request->id);
         $total=($request->total);
         $affectedRows = Entrada::where('id', "$id")->update(array('valor' => $total));
-        can('lista-entradas');
+        //can('lista-entradas');
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
         $datas = Persona::prov($request->get('busprov'))->orderBy('id', 'DESC')->paginate(); 

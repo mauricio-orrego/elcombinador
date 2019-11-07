@@ -18,8 +18,6 @@ class PersonaController extends Controller
      */
     public function index(Request $request )
     {
-        //dd("hola" . $request->get('q'));
-        can('crear-persona');
         $tipo_pers = Tipo_per::orderBy('id')->pluck('nombre', 'id')->toArray();
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
@@ -52,17 +50,7 @@ class PersonaController extends Controller
         return redirect('persona')->with('mensaje', 'persona creada con exito');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
+   
     /**
      * Show the form for editing the specified resource.
      *
@@ -71,7 +59,6 @@ class PersonaController extends Controller
      */
     public function editar($id)
     {
-    
         $tipo_pers = Tipo_per::orderBy('id')->pluck('nombre', 'id')->toArray();
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();

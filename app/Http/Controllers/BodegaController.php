@@ -16,7 +16,6 @@ class BodegaController extends Controller
      */
     public function index()
     {
-        can('listar-bodegas');
         $datas = Bodega::orderBy('id')->get();
         return view('bodega.index', compact('datas'));
     }

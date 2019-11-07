@@ -16,7 +16,6 @@ class DeptoController extends Controller
      */
     public function index()
     {
-        can('listar-depto');
         $datas = Depto::orderBy('id')->get();
         return view('depto.index', compact('datas'));
     }

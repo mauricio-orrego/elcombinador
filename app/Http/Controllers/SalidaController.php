@@ -22,7 +22,7 @@ class salidaController extends Controller
      */
     public function index(Request $request)
     {
-        can('listar-salidas');
+        //can('listar-salidas');
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
         $datas = Persona::clie($request->get('busprov'))->orderBy('id', 'DESC')->paginate(10); 
@@ -90,7 +90,7 @@ class salidaController extends Controller
     
     public function nueva(Request $request, $id)
     {
-        can('lista-salidas');
+        //can('lista-salidas');
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $datas = Persona::clie($request->get('busprov'))->where('id', "$id")->paginate(); 
         //numero salida maximo
@@ -154,7 +154,6 @@ class salidaController extends Controller
         $id=($request->id);
         $total=($request->total);
         $affectedRows = salida::where('id', "$id")->update(array('valor' => $total));
-        can('lista-salidas');
         $tipo_docs = Tipo_doc::orderBy('id')->pluck('nombre', 'id')->toArray();
         $ciudades = Ciudad::orderBy('id')->pluck('nombre', 'id')->toArray();
         $datas = Persona::clie($request->get('busprov'))->orderBy('id', 'DESC')->paginate(); 

@@ -24,7 +24,6 @@ Salidas
               </span>
         </div>
       </form>
-
                 <table class="table table-striped table-bordered table-hover" id="tabla-data">
                     <thead>
                         <tr>

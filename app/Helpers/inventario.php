@@ -14,7 +14,7 @@ if (!function_exists('getMenuActivo')) {
     }
 }
 
-if (!function_exists('canUser')) {
+/*if (!function_exists('canUser')) {
     function can($permiso, $redirect = true)
     {
         if (session()->get('rol_nombre') == 'administrador') {
@@ -38,4 +38,4 @@ if (!function_exists('canUser')) {
             return true;
         }
     }
-}
+}*/

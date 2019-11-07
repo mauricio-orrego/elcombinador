@@ -15,7 +15,6 @@ class Tipo_perController extends Controller
      */
     public function index()
     {
-        can('listar-tipo_per');
         $datas = Tipo_per::orderBy('id')->get();
         return view('tipo_per.index', compact('datas'));
     }

@@ -16,7 +16,6 @@ class CiudadController extends Controller
      */
     public function index()
     {
-        can('listar-ciudad');
         $deptos = Depto::orderBy('id')->pluck('nombre', 'id')->toArray();
         $datas = Ciudad::orderBy('id')->get();
         return view('ciudad.index', compact('datas','deptos'));

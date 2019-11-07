@@ -17,7 +17,6 @@ class ProductoController extends Controller
      */
     public function index(Request $request)
     {
-        can('crear-producto');
         $categorias = Categoria::orderBy('id')->pluck('nombre', 'id')->toArray();
         $bodegas = Bodega::orderBy('id')->pluck('nombre', 'id')->toArray();
         //para la busqueda de productos

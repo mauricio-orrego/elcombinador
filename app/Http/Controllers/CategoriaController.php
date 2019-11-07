@@ -17,7 +17,6 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        can('listar-categorias');
         $datas = Categoria::orderBy('id')->get();
         return view('categoria.index', compact('datas'));
     }

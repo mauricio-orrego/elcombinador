@@ -15,6 +15,12 @@ class CrearTablaCierreInv extends Migration
     {
         Schema::create('table', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->date('fecha');
+            $table->unsignedInteger('producto_id');
+            $table->foreign('producto_id','fr_producto_id')->references('id')->on('producto')->onDelete('restrict')->onUpdate('cascade');
+            $table->float('cantidad', 6, 2);
+            $table->integer('costo');
+            $table->string('id_mod');
             $table->timestamps();
         });
     }

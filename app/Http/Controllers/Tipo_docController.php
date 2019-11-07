@@ -15,7 +15,6 @@ class Tipo_docController extends Controller
      */
     public function index()
     {
-        can('listar-tipo_doc');
         $datas = Tipo_doc::orderBy('id')->get();
         return view('Tipo_doc.index', compact('datas'));
     }
